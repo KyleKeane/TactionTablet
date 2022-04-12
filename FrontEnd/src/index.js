@@ -1,13 +1,15 @@
-const { app, BrowserWindow, getCurrentWindow, ipcMain, Menu } = require('electron')
+const { app, BrowserWindow, getCurrentWindow, ipcMain, Menu, dialog } = require('electron')
 const path = require('path');
 
 require('@electron/remote/main').initialize()
+
 let win;
 let routes = {
   'settings': path.join(app.getAppPath(), 'src', 'pages', 'settings', 'settings.html'),
   'homescreen': path.join(app.getAppPath(), 'src', 'pages', 'homescreen', 'homescreen.html'),
   'upload_image': path.join(app.getAppPath(), 'src', 'pages', 'upload_image', 'upload_image.html')
 }
+
 function createWindow () {
   win = new BrowserWindow({
     width: 800,
@@ -29,8 +31,6 @@ function createWindow () {
 
   win.loadFile('./src/pages/homescreen/homescreen.html')
 
-  // win.webContents.openDevTools();
-
   menu = require(path.join(app.getAppPath(), "src", "scripts", "makeMenu.js"));
   Menu.setApplicationMenu(menu.makeMenu());
 }
@@ -45,6 +45,12 @@ ipcMain.on("setGlobalPort", (event, port) => {
 
 ipcMain.on("getGlobalPort", (event, args) => {
   win.webContents.send("getGlobalPort", global.tabletPort);
+});
+
+app.whenReady().then(() => {
+  ipcMain.handle('dialog', (event, method, params) => {
+    return dialog[method](params);
+  });
 });
 
 app.on('window-all-closed', () => {

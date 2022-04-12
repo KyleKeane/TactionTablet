@@ -1,9 +1,7 @@
 console.log("settings")
-// const { app, getCurrentWindow } = require('@electron/remote');
-// const path = require('path');
 
 function resetTablet(){
-  // TODO: send reset gcode to esp
+  // TODO: send reset gcode to ESP
   console.log("reset tablet")
   window.electron.send("toMain", "homescreen");
 }

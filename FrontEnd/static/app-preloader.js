@@ -8,12 +8,12 @@ contextBridge.exposeInMainWorld(
   'electron',
   {
     getCurrentWindow: () => getCurrentWindow(),
-    // joinPath: (args1, args2, args3, args4, args5) => path.join(args1, args2, args3, args4, args5),
     getAppPath: () => app.getAppPath(),
     loadFile: () => loadFile(),
+    openDialog: (method, config) => ipcRenderer.invoke('dialog', method, config),
     send: (channel, data) => {
         // whitelist channels
-        let validChannels = ["toMain", "setGlobalPort", "getGlobalPort"];
+        let validChannels = ["toMain", "setGlobalPort", "getGlobalPort", "openFile"];
         if (validChannels.includes(channel)) {
             ipcRenderer.send(channel, data);
         }
