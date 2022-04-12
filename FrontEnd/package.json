@@ -1,0 +1,26 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "rsonecha",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^16.0.6"
+  },
+  "dependencies": {
+    "@electron/remote": "^2.0.1",
+    "electron-reload": "^2.0.0-alpha.1"
+  },
+  "electronWebpack": {
+    "main": {
+      "extraEntries": [
+        "./static/preload.js"
+      ]
+    }
+  }
+}
