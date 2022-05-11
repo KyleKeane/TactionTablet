@@ -67,10 +67,6 @@ def get_image(request):
     img = cv2.imdecode(data, color_image_flag)
     return "image recieved"
 
-def upload_image():
-    return render_template('upload_image.html')
 
 def reset_screen(request):
     port = request.args['port']
-    # time.sleep(5)
-    # return render_template('printer_actions.html', port=port)

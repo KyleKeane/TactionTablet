@@ -13,5 +13,24 @@ function loadImagePath(){
     buttonLabel: 'Submit',
     properties: ['openFile']
   };
-  window.electron.openDialog('showOpenDialogSync', dialogConfig).then((file) => console.log(file[0]));
+  window.electron.openDialog('showOpenDialogSync', dialogConfig).then(
+    (file) => {
+      console.log(file);
+      if (file == undefined){
+        imageFileElement = document.getElementById('image_button');
+    		imageFileElement.innerHTML = 'Error, please try again';
+      }
+      if (!(file[0].endsWith('.jpg') || file[0].endsWith('.jpeg') || file[0].endsWith('.png'))){
+        imageFileElement = document.getElementById('image_button');
+    		imageFileElement.innerHTML = 'Error, please select an image file';
+      }
+      else{
+        imageFileElement = document.getElementById('image_button');
+    		imageFileElement.innerHTML = file[0];
+        imageFileElement.disabled = true;
+
+        alert("Please wait, your image is being converted.");
+      }
+    }
+  );
 }

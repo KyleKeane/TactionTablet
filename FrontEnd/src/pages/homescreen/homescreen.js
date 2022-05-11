@@ -20,11 +20,11 @@ async function getComPort(){
 
 function connectToTablet(){
   console.log("connecting to taction tablet");
-  // TODO: add waiting/loading screen while connecting
   return Promise.all([getComPort()]).then(
     (values) => {
       data = values[0];
-      port = data.port
+      port = data.port;
+      console.log(port);
       if (port){
         window.electron.send("setGlobalPort", port);
         window.electron.receive("getGlobalPort", (data) => {
@@ -33,7 +33,7 @@ function connectToTablet(){
         window.electron.send("toMain", "settings");
       }
       else {
-        // TODO: add error message
+        alert("Something went wrong, please try again.")
         window.electron.send("toMain", "homescreen");
       }
     }
