@@ -25,7 +25,7 @@ You will need to build the app using [Electron](https://electronjs.org/) and [El
 Following [Electron's first app documentation](https://electronjs.org/docs/tutorial/first-app)
 
 #### Taction Tablet
-Building PrakAI-Pebbles by completing the following steps:
+Building TactionTablet by completing the following steps:
 
 1. Download this repo
 2. Terminal into the `TactionTablet/FrontEnd` directory inside the local copy
