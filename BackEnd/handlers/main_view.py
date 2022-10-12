@@ -1,5 +1,8 @@
 from flask import render_template, redirect, request
 import serial.tools.list_ports
+import cv2
+import numpy as np
+import json
 
 def main():
     return render_template("homescreen.html")
@@ -67,6 +70,18 @@ def get_image(request):
     img = cv2.imdecode(data, color_image_flag)
     return "image recieved"
 
+def basic_tactification(img_path):
+    img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
+    img_gray_small = cv2.resize(img, (60, 40))
+    (thresh, img_bw_small) = cv2.threshold(img_gray_small, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+    return img_bw_small
+
+def convertImage(img_path, tactification_alg = None):
+    if not tactification_alg:
+        tactified_img = basic_tactification(img_path)
+    new_path = img_path[:img_path.rindex('.')] + '_tactified' + img_path[img_path.rindex('.'):]
+    cv2.imwrite(new_path, tactified_img)
+    return {"original_path": img_path, "modified_path": new_path, "image_array": json.dumps(tactified_img.tolist())}
 
 def reset_screen(request):
     port = request.args['port']

@@ -13,7 +13,7 @@
     "electron": "^16.0.6"
   },
   "dependencies": {
-    "@electron/remote": "^2.0.1",
+    "@electron/remote": "^2.0.8",
     "electron-reload": "^2.0.0-alpha.1"
   },
   "electronWebpack": {

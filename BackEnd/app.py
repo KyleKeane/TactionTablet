@@ -17,13 +17,20 @@ def main_view():
 def connect():
     return handlers.main_view.connect()
 
-@app.route('/upload', methods=['POST'])
-def recieve_image():
-    return handlers.main_view.get_image(request)
+# @app.route('/upload', methods=['POST'])
+# def recieve_image():
+#     return handlers.main_view.get_image(request)
+#
+# @app.route('/upload', methods=['GET'])
+# def upload_image():
+#     return handlers.main_view.upload_image()
 
-@app.route('/upload', methods=['GET'])
-def upload_image():
-    return handlers.main_view.upload_image()
+@app.route('/convertImage', methods=['POST'])
+def convertImage():
+    form = json.loads(request.data)
+    img_path = form['imagePath']
+    # return img_path
+    return handlers.main_view.convertImage(img_path)
 
 @app.route('/reset', methods=['GET'])
 def reset_screen():
